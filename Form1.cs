@@ -28,10 +28,11 @@ namespace Stelmakh_IKM_721Б_Course_project
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MajorObject = new MajorWork();
+            MajorObject.SetTime();
             About A = new About(); // створення форми About
             A.tAbout.Start();
-            A.ShowDialog(); // відображення діалогового вікна About
-            MajorObject = new MajorWork();
+            A.ShowDialog(); // відображення діалогового вікна About 
             this.Mode = true;
         }
 
@@ -72,6 +73,13 @@ namespace Stelmakh_IKM_721Б_Course_project
                 tClock.Start();
                 e.KeyChar = (char)0;
             }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            string s;
+            s = (System.DateTime.Now - MajorObject.GetTime()).ToString();
+            MessageBox.Show(s, "Час роботи програми"); // Виведення часу роботи програми і повідомлення "Час роботи програми" на екран
         }
     }
 }

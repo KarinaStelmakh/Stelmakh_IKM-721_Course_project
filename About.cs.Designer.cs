@@ -51,8 +51,8 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(278, 225);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Розробив\r\nКурсовий проект\r\nСтудентка групи ІКМ-721Б\r\nСтельмах К.\r\n\r\nТекст Завданн" +
-    "я\r\nТекст\r\n\r\n\r\n";
+            this.label1.Text = "Розробила\r\nКурсовий проект\r\nСтудентка групи ІКМ-721Б\r\nСтельмах К.\r\n\r\nТекст Завдан" +
+    "ня\r\nТекст\r\n\r\n\r\n";
             // 
             // tAbout
             // 
