@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using System.IO;
 
 
 namespace Stelmakh_IKM_721Б_Course_project
@@ -15,6 +16,7 @@ namespace Stelmakh_IKM_721Б_Course_project
     public partial class Form1 : Form
     {
         private bool Mode; // Режим дозволу / заборони введення даних
+        private SaveFileDialog sf;
         private MajorWork MajorObject; // Створення об'єкта класу MajorWork
         ToolStripLabel dateLabel;
         ToolStripLabel timeLabel;
@@ -253,6 +255,107 @@ namespace Stelmakh_IKM_721Б_Course_project
                 }
                 if (MajorObject.myStack.Count == 0)
                     MessageBox.Show("\nСтек порожній!");
+            }
+        }
+
+        private void Enqueue_Click(object sender, EventArgs e)
+        {
+            MajorObject.myQueue.Enqueue(Queuetb.Text);
+            MajorObject.smyQueue[MajorObject.myQueue.Count - 1] = Queuetb.Text;
+            LabelQueue.Text = "";
+            for (int i = 0; i < MajorObject.smyQueue.Length; i++)
+            {
+                if (MajorObject.smyQueue[i] != null)
+                {
+                    LabelQueue.Text += MajorObject.smyQueue[i] + (char)13;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+
+        private void Peek_q_Click(object sender, EventArgs e)
+        {
+            if (MajorObject.myQueue.Count > 0)
+            {
+                MessageBox.Show("Peek " + MajorObject.myQueue.Peek());
+            }
+            if (MajorObject.myQueue.Count == 0)
+                MessageBox.Show("\nЧерга порожня!");
+        }
+
+        private void Dequeue_Click(object sender, EventArgs e)
+        {
+            if (MajorObject.myQueue.Count == 0)
+
+                MessageBox.Show("\nЧерга порожня!");
+            else
+            {
+                MajorObject.smyQueue[0] = null;
+
+                // Зрушення елементів вліво на 1 позицію
+                for (int i = 0; i < MajorObject.smyQueue.Length - 1; i++)
+                {
+                    MajorObject.smyQueue[i] = MajorObject.smyQueue[i + 1];
+                }
+                // Витяг елемента з черги
+                if (MajorObject.myQueue.Count > 0)
+                {
+                    MessageBox.Show("Dequeue " + MajorObject.myQueue.Dequeue());
+                }
+                // Формування текста для виведення на екран
+                LabelQueue.Text = "";
+                for (int i = 0; i < MajorObject.smyQueue.Length - 1; i++)
+                {
+                    if (MajorObject.smyQueue[i] != null)
+                    {
+                        LabelQueue.Text += MajorObject.smyQueue[i] + (char)13;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                if (MajorObject.myQueue.Count == 0)
+                    MessageBox.Show("\nЧерга порожня!");
+            }
+        }
+
+        private void зберегтиЯкToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sf = new SaveFileDialog();
+
+            sf.Filter = @"Текстовий файл (*.txt)|*.txt|Текстові файли
+            TXT(*.txt)|*.txt|CSV-файл (*.csv)|*.csv|Bin-файл (*.bin)|*.bin";
+
+            if (sf.ShowDialog() == DialogResult.OK)
+            {
+                MajorObject.WriteSaveTextFileName(sf.FileName);
+                MajorObject.SaveToTextFile(sf.FileName, dgwOpen);
+            }
+        }
+
+        private void зберегтиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (MajorObject.SaveTextFileNameExists())
+
+                MajorObject.SaveToTextFile(MajorObject.ReadSaveTextFileName(), dgwOpen);
+            else
+                зберегтиЯкToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void відкритиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog o = new OpenFileDialog();
+
+            o.Filter = @"Текстовий файл (*.txt)|*.txt|Текстовий файл
+TXT(*.txt)|*.txt|CSV-файл (*.csv)|*.csv|Bin-файл (*.bin)|*.bin";
+
+            if (o.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox1.Text = File.ReadAllText(o.FileName, Encoding.Default);
             }
         }
     }
