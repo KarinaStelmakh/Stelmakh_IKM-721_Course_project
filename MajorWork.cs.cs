@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Collections;
 namespace Stelmakh_IKM_721Б_Course_project
 {
     internal class MajorWork
@@ -17,6 +18,8 @@ namespace Stelmakh_IKM_721Б_Course_project
         private string OpenFileName;// ім’я файлу для читання
         public bool Modify;
         private int Key;// поле ключа
+        public Stack myStack = new Stack();
+        public string[] myArr = new string[100];
         public void WriteSaveFileName(string S)// метод запису даних в об'єкт
         {
             this.SaveFileName = S;// запам'ятати ім’я файлу для запису

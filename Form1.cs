@@ -189,5 +189,71 @@ namespace Stelmakh_IKM_721Б_Course_project
         {
             MajorObject.Find(tbSearch.Text); //пошук
         }
+
+        private void Push_Click(object sender, EventArgs e)
+        {
+            MajorObject.myStack.Push(Stacktb.Text);
+
+            MajorObject.myArr[MajorObject.myArr.Length - MajorObject.myStack.Count] =
+
+            Stacktb.Text;
+
+            LabelStack.Text = "";
+            for (int i = 0; i < MajorObject.myArr.Length; i++)
+            {
+                if (MajorObject.myArr[i] != null)
+                {
+                    LabelStack.Text += MajorObject.myArr[i] + (char)13;
+                }
+                else
+
+                {
+                    continue;
+                }
+            }
+        }
+
+        private void Peek_Click(object sender, EventArgs e)
+        {
+            if (MajorObject.myStack.Count > 0)
+
+            {
+                MessageBox.Show("Peek " + MajorObject.myStack.Peek());
+            }
+            if (MajorObject.myStack.Count == 0)
+                MessageBox.Show("\nСтек порожній!");
+        }
+
+        private void Pop_Click(object sender, EventArgs e)
+        {
+            if (MajorObject.myStack.Count == 0)
+                MessageBox.Show("\nСтек порожній!");
+            else
+            {
+                MajorObject.myArr[MajorObject.myArr.Length - MajorObject.myStack.Count] =
+
+                null;
+
+                if (MajorObject.myStack.Count > 0)
+                {
+                    MessageBox.Show("Pop " + MajorObject.myStack.Pop());
+                }
+                LabelStack.Text = "";
+                for (int i = 0; i < MajorObject.myArr.Length; i++)
+                {
+                    if (MajorObject.myArr[i] != null)
+
+                    {
+                        LabelStack.Text += MajorObject.myArr[i] + (char)13;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                if (MajorObject.myStack.Count == 0)
+                    MessageBox.Show("\nСтек порожній!");
+            }
+        }
     }
 }
